@@ -7,7 +7,6 @@ DB_FILE = "data.json"
 def load_data():
 
     if not os.path.exists(DB_FILE):
-
         return {
             "users": {},
             "announcement": "",
@@ -15,24 +14,22 @@ def load_data():
             "running": False
         }
 
-    with open(DB_FILE, "r", encoding="utf-8") as f:
-
-        try:
+    try:
+        with open(DB_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
 
-        except:
-            return {
-                "users": {},
-                "announcement": "",
-                "interval": 0,
-                "running": False
-            }
+    except Exception:
+        return {
+            "users": {},
+            "announcement": "",
+            "interval": 0,
+            "running": False
+        }
 
 
 def save_data(data):
 
     with open(DB_FILE, "w", encoding="utf-8") as f:
-
         json.dump(
             data,
             f,
@@ -41,9 +38,9 @@ def save_data(data):
         )
 
 
-# =========================
+# ==========================
 # USER GROUP MANAGEMENT
-# =========================
+# ==========================
 
 def get_user_chats(user_id):
 
@@ -86,9 +83,9 @@ def remove_group(user_id, group_id):
     save_user_chats(user_id, chats)
 
 
-# =========================
+# ==========================
 # ANNOUNCEMENT SETTINGS
-# =========================
+# ==========================
 
 def set_announcement(message):
 
@@ -103,10 +100,7 @@ def get_announcement():
 
     data = load_data()
 
-    return data.get(
-        "announcement",
-        ""
-    )
+    return data.get("announcement", "")
 
 
 def set_interval(minutes):
@@ -122,10 +116,7 @@ def get_interval():
 
     data = load_data()
 
-    return data.get(
-        "interval",
-        0
-    )
+    return data.get("interval", 0)
 
 
 def set_running(status):
@@ -141,7 +132,4 @@ def is_running():
 
     data = load_data()
 
-    return data.get(
-        "running",
-        False
-    )
+    return data.get("running", False)
